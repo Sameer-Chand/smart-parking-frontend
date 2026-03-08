@@ -1,5 +1,4 @@
-
-const API_BASE = "https://your-backend-name.onrender.com";
+const API_BASE = "https://smart-parking-backend-o36r.onrender.com"
 
 const VEHICLE_REGEX = /^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$/;
 const MOBILE_REGEX = /^[0-9]{10}$/;
@@ -92,7 +91,7 @@ function ticketIdFromSession(sessionId) {
 }
 
 async function fetchJSON(url, options = {}) {
-  const res = await fetch(url, {
+  const res = await fetch(API_BASE + url, {
     headers: { "Content-Type": "application/json" },
     ...options,
   });
@@ -127,7 +126,7 @@ async function submitEntry(event) {
   }
 
   try {
-    const data = await fetchJSON(`${API_BASE}/api/entry`, {
+    const data = await fetchJSON("/api/entry", {
       method: "POST",
       body: JSON.stringify({ car_number, driver_name, mobile_number }),
     });
@@ -155,7 +154,7 @@ async function goNavigation() {
   showError();
 
   try {
-    state.nav = await fetchJSON(`${API_BASE}/api/navigation/${state.sessionId}`);
+    state.nav = await fetchJSON(`/api/navigation/${state.sessionId}`);
     setView("nav");
   } catch (err) {
     showError(err.message);
@@ -166,7 +165,7 @@ async function confirmReached() {
   showError();
 
   try {
-   await fetchJSON(`${API_BASE}/api/park/${state.sessionId}/confirm`, { method: "POST" });
+    await fetchJSON(`/api/park/${state.sessionId}/confirm`, { method: "POST" });
 
     const parsed = parseSlot(state.slot.slot_number);
     document.getElementById("ticketId").textContent = ticketIdFromSession(state.sessionId);
