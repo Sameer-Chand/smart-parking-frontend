@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Parking System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <script src="app.js"></script>
+  <body>
+    <main class="app-shell">
+      <p id="errorBox" class="error hidden"></p>
+
+      <section id="entryView" class="screen card">
+        <h1>Driver Details</h1>
+        <p class="sub">Please provide your details</p>
+        <form id="entryForm" novalidate>
+          <label for="carNumber">Car Number</label>
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5.2 14.5h13.6l-1.1-3.3a2 2 0 0 0-1.9-1.4H8.2a2 2 0 0 0-1.9 1.4z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M4 14.5h16v3a1.5 1.5 0 0 1-1.5 1.5h-1A1.5 1.5 0 0 1 16 17.5V17h-8v.5A1.5 1.5 0 0 1 6.5 19h-1A1.5 1.5 0 0 1 4 17.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <circle cx="7" cy="15.7" r="0.8" fill="currentColor"/>
+                <circle cx="17" cy="15.7" r="0.8" fill="currentColor"/>
+              </svg>
+            </span>
+            <input id="carNumber" required minlength="10" maxlength="10" placeholder="DL01AB1234" autocomplete="off" />
+          </div>
+          <small id="carError" class="field-error hidden">Please enter a valid vehicle number</small>
+
+          <label for="driverName">Driver Name</label>
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M5.8 18.5c0-3 2.8-5.3 6.2-5.3s6.2 2.3 6.2 5.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input id="driverName" required minlength="2" maxlength="40" placeholder="Your Name" />
+          </div>
+
+          <label for="mobileNumber">Mobile Number</label>
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect x="7" y="3.5" width="10" height="17" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="12" cy="17.4" r="0.9" fill="currentColor"/>
+              </svg>
+            </span>
+            <input id="mobileNumber" required inputmode="numeric" maxlength="10" placeholder="10 digit mobile" autocomplete="off" />
+          </div>
+          <small id="mobileError" class="field-error hidden">Please enter a valid 10 digit mobile number</small>
+
+          <button type="submit" class="btn btn-primary">Submit &amp; Check Slot</button>
+        </form>
+      </section>
+
+      <section id="slotView" class="screen card hidden">
+        <div class="status-icon">&#10003;</div>
+        <h2>Slot Allotted Successfully</h2>
+        <article class="slot-ticket">
+          <p>PARKING SLOT</p>
+          <h3 id="slotCode">A-12</h3>
+        </article>
+        <p id="slotLocation" class="location">Level 1, Row A</p>
+        <button id="toNavBtn" class="btn btn-primary">Navigate to Slot &#8599;</button>
+      </section>
+
+      <section id="navView" class="screen card hidden">
+        <p class="pill">IN NAVIGATION</p>
+        <h2>Follow the route to reach your slot</h2>
+        <div class="map-box">
+          <div class="spot">P-1</div>
+          <div class="spot">P-2</div>
+          <div class="spot">P-3</div>
+          <div class="spot">P-4</div>
+          <div class="spot">P-5</div>
+          <div class="spot active" id="mapSlot">A-12</div>
+          <svg viewBox="0 0 300 260" preserveAspectRatio="none" aria-hidden="true">
+            <path id="routePath" d="M150 245 L150 150 L235 150 L235 95" />
+            <circle cx="150" cy="245" r="5"></circle>
+            <circle cx="235" cy="95" r="5"></circle>
+          </svg>
+        </div>
+        <div class="hint-box">
+          <strong id="navTitle">Heading towards Level 1</strong>
+          <small id="navStep">Turn right after the first row to find Slot A-12.</small>
+        </div>
+        <button id="confirmBtn" class="btn btn-success">Reached Slot &#10003;</button>
+      </section>
+
+      <section id="ticketView" class="screen card hidden">
+        <div class="status-icon">&#10003;</div>
+        <h2>Vehicle Parked!</h2>
+        <p class="sub">Your parking ticket has been generated.</p>
+        <article class="final-ticket">
+          <div class="ticket-top">
+            <small>TICKET ID</small>
+            <strong id="ticketId">#SP-000000</strong>
+          </div>
+          <div class="ticket-mid">
+            <div>
+              <small>VEHICLE</small>
+              <b id="ticketVehicle">ABC-1234</b>
+            </div>
+            <div>
+              <small>SLOT NO.</small>
+              <b id="ticketSlot">A-12</b>
+            </div>
+          </div>
+          <div class="ticket-bottom">
+            <small>ENTRY TIME</small>
+            <b id="ticketTime">10:45 AM | 21 Feb 2026</b>
+          </div>
+          <div class="barcode"></div>
+        </article>
+        <button id="downloadBtn" class="btn btn-primary">Download Ticket &#10515;</button>
+      </section>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
